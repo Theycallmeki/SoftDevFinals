@@ -5,7 +5,7 @@ const { Sequelize } = require('sequelize');
 // Locally, it should connect to "localhost"
 const host = process.env.DOCKER_ENV ? 'postgres-db' : 'localhost';
 
-const sequelize = new Sequelize('nigga', 'postgres', '12345678', {
+const sequelize = new Sequelize('softdev', 'postgres', '12345678', {
   host: host,
   port: 5432,
   dialect: 'postgres',

@@ -1,16 +1,73 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import HomePage from './pages/HomePage';
-import CrudPage from './pages/CrudPage';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import Navbar from "./components/Navbar";
+import HomePage from "./pages/HomePage";
+import CrudPage from "./pages/CrudPage";
+import MarketPage from "./pages/MarketPage";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import ProtectedRoute from "./ProtectedRoute";
+
+import { getMe, logout } from "./api/authApi";
 
 function App() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Check if user is already logged in on mount
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const data = await getMe(); // fetch current user from cookie
+        setUser(data.user);
+      } catch {
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await logout(); // clear cookie
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setUser(null);
+    }
+  };
+
+  if (loading) return <p className="text-center mt-10">Loading...</p>;
+
   return (
     <Router>
-      <Navbar />
+      <Navbar user={user} onLogout={handleLogout} />
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={<HomePage />} />
-        <Route path="/items" element={<CrudPage />} />
+        <Route path="/login" element={<Login onLogin={setUser} />} />
+        <Route path="/register" element={<Register onRegister={setUser} />} />
+
+        {/* Protected Routes */}
+        <Route
+          path="/items"
+          element={
+            <ProtectedRoute user={user}>
+              <CrudPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/market"
+          element={
+            <ProtectedRoute user={user}>
+              <MarketPage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );

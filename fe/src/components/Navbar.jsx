@@ -1,13 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Navbar() {
+function Navbar({ user, onLogout }) {
   return (
     <nav style={styles.navbar}>
-      <h2 style={styles.title}>🛒 Masrketpslace</h2>
+      <h2 style={styles.title}>🛒 Marketplace</h2>
       <div>
         <Link to="/" style={styles.link}>Home</Link>
-        <Link to="/items" style={styles.link}>Manage Items</Link>
+        
+        {/* Show only if logged in */}
+        {user && (
+          <>
+            <Link to="/items" style={styles.link}>Manage Items</Link>
+            <Link to="/market" style={styles.link}>Marketplace</Link>
+            <button onClick={onLogout} style={styles.logoutBtn}>Logout</button>
+          </>
+        )}
+
+        {/* Show only if not logged in */}
+        {!user && (
+          <>
+            <Link to="/login" style={styles.link}>Login</Link>
+            <Link to="/register" style={styles.link}>Register</Link>
+          </>
+        )}
       </div>
     </nav>
   );
@@ -29,6 +45,16 @@ const styles = {
     color: 'white',
     marginLeft: '15px',
     textDecoration: 'none',
+    fontWeight: 'bold',
+  },
+  logoutBtn: {
+    marginLeft: '15px',
+    padding: '5px 10px',
+    backgroundColor: '#ff4d4f',
+    color: 'white',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer',
     fontWeight: 'bold',
   },
 };

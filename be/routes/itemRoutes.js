@@ -3,6 +3,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const itemApi = require('../api/itemApi');
+const { verifyToken } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
@@ -18,22 +19,16 @@ const storage = multer.diskStorage({
     cb(null, `${base}-${Date.now()}${ext}`);
   },
 });
+const upload = multer({ storage });
 
-const upload = multer({
-  storage,
-  fileFilter: (_, file, cb) => {
-    if (!file.mimetype.startsWith('image/')) {
-      return cb(new Error('Only image files are allowed'));
-    }
-    cb(null, true);
-  },
-});
+// Public route: get all items (marketplace)
+router.get('/all', itemApi.listAllItems);
 
-// Routes
-router.get('/', itemApi.listItems);
-router.get('/:id', itemApi.getItem);
-router.post('/', upload.single('picture'), itemApi.createItem);
-router.put('/:id', upload.single('picture'), itemApi.updateItem);
-router.delete('/:id', itemApi.deleteItem);
+// Protected CRUD routes (user-specific)
+router.get('/', verifyToken, itemApi.listItems);
+router.get('/:id', verifyToken, itemApi.getItem);
+router.post('/', verifyToken, upload.single('picture'), itemApi.createItem);
+router.put('/:id', verifyToken, upload.single('picture'), itemApi.updateItem);
+router.delete('/:id', verifyToken, itemApi.deleteItem);
 
 module.exports = router;

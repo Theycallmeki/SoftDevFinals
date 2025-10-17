@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getItems, addItem, updateItem, deleteItem } from '../api';
+import { getItems, addItem, updateItem, deleteItem } from '../api/ItemApi';
 
 function CrudPage() {
   const [items, setItems] = useState([]);

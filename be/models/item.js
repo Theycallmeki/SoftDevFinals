@@ -27,6 +27,10 @@ const Item = sequelize.define('Item', {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  userId: {             // Link item to the user
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
 }, {
   tableName: 'items',
   timestamps: true,
