@@ -30,7 +30,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // ✅ PostgreSQL connection test
 sequelize.authenticate()
-  .then(() => console.log('✅ PostgreSQL connected'))
+  .then(() => console.log('✅ PostgreSQL connected!'))
   .catch(err => console.error('❌ DB connection error:', err));
 
 // ✅ Sync models
