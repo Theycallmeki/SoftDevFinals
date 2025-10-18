@@ -13,6 +13,8 @@ function Navbar({ user, onLogout }) {
           <>
             <Link to="/crud" style={styles.link}>Manage Recipes</Link>
             <Link to="/recipes" style={styles.link}>Recipes</Link>
+            <Link to="/bookmarks" style={styles.link}>Saved Recipes</Link>
+
             <button onClick={onLogout} style={styles.logoutBtn}>Logout</button>
           </>
         )}

@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
 import CrudPage from "./pages/CrudPage";
 import RecipePage from "./pages/RecipePage";
+import BookmarksPage from "./pages/BookMarkPage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ProtectedRoute from "./ProtectedRoute";
@@ -45,14 +46,13 @@ function App() {
     <Router>
       <Navbar user={user} onLogout={handleLogout} />
       <Routes>
-        {/* Public Routes */}
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login onLogin={setUser} />} />
         <Route path="/register" element={<Register onRegister={setUser} />} />
 
-        {/* Protected Routes */}
         <Route path="/crud" element={<ProtectedRoute user={user}><CrudPage /></ProtectedRoute>} />
         <Route path="/recipes" element={<ProtectedRoute user={user}><RecipePage /></ProtectedRoute>} />
+        <Route path="/bookmarks" element={<ProtectedRoute user={user}><BookmarksPage /></ProtectedRoute>} />
       </Routes>
     </Router>
   );
