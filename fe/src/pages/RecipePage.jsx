@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { getAllRecipes } from '../api/RecipeApi';
+import { getMe } from '../api/authApi';
 import RecipeCard from '../components/RecipeCard';
 
 export default function MarketPage() {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [currentUser, setCurrentUser] = useState(null);
 
   const loadRecipes = async () => {
     setLoading(true);
     setError('');
     try {
-      const data = await getAllRecipes(); // fetch all public recipes
+      const data = await getAllRecipes();
       setRecipes(data);
     } catch (err) {
       setError(err.message || 'Failed to load recipes');
@@ -20,7 +22,17 @@ export default function MarketPage() {
     }
   };
 
+  const loadCurrentUser = async () => {
+    try {
+      const data = await getMe();
+      setCurrentUser(data.user);
+    } catch {
+      setCurrentUser(null);
+    }
+  };
+
   useEffect(() => {
+    loadCurrentUser();
     loadRecipes();
   }, []);
 
@@ -35,7 +47,11 @@ export default function MarketPage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {recipes.map((recipe) => (
-            <RecipeCard key={recipe.id} recipe={recipe} />
+            <RecipeCard
+              key={recipe.id}
+              recipe={recipe}
+              currentUser={currentUser}
+            />
           ))}
         </div>
       )}

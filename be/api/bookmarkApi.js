@@ -31,6 +31,11 @@ exports.addBookmark = async (req, res) => {
     const recipe = await Recipe.findByPk(recipeId);
     if (!recipe) return res.status(404).json({ message: 'Recipe not found' });
 
+    // Prevent bookmarking your own recipe
+    if (recipe.userId === req.user.id) {
+      return res.status(400).json({ message: 'Cannot bookmark your own recipe' });
+    }
+
     const existing = await Bookmark.findOne({
       where: { userId: req.user.id, recipeId },
     });

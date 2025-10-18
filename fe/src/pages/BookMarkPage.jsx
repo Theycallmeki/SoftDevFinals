@@ -1,25 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import { getUserBookmarks } from '../api/bookmarkApi';
+import { getMe } from '../api/authApi';
 import RecipeCard from '../components/RecipeCard';
 
 export default function BookmarksPage() {
   const [bookmarks, setBookmarks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [currentUser, setCurrentUser] = useState(null);
+
+  const loadBookmarks = async () => {
+    setLoading(true);
+    setError('');
+    try {
+      const data = await getUserBookmarks();
+      setBookmarks(data);
+    } catch (err) {
+      setError(err.message || 'Failed to load bookmarks');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadCurrentUser = async () => {
+    try {
+      const data = await getMe();
+      setCurrentUser(data.user);
+    } catch {
+      setCurrentUser(null);
+    }
+  };
 
   useEffect(() => {
-    (async () => {
-      setLoading(true);
-      setError('');
-      try {
-        const data = await getUserBookmarks();
-        setBookmarks(data);
-      } catch (err) {
-        setError(err.message || 'Failed to load bookmarks');
-      } finally {
-        setLoading(false);
-      }
-    })();
+    loadCurrentUser();
+    loadBookmarks();
   }, []);
 
   if (loading) return <p className="text-center mt-10">Loading bookmarks...</p>;
@@ -34,7 +48,12 @@ export default function BookmarksPage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {bookmarks.map((recipe) => (
-            <RecipeCard key={recipe.id} recipe={recipe} />
+            <RecipeCard
+              key={recipe.id}
+              recipe={recipe}
+              currentUser={currentUser}
+              // no onDelete here, delete feature removed
+            />
           ))}
         </div>
       )}
