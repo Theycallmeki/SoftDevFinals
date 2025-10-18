@@ -1,39 +1,36 @@
+// models/recipe.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db');
 
-const Item = sequelize.define('Item', {
+const Recipe = sequelize.define('Recipe', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
   },
-  name: {
+  title: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  price: {
-    type: DataTypes.DECIMAL(10, 2),
-    allowNull: false,
-  },
-  stock: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    defaultValue: 0,
-  },
-  description: {
+  ingredients: {
     type: DataTypes.TEXT,
+    allowNull: false,
   },
-  picture: {
+  instructions: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  image: {
     type: DataTypes.STRING,
     allowNull: true,
   },
-  userId: {             // Link item to the user
+  userId: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
 }, {
-  tableName: 'items',
+  tableName: 'recipes',
   timestamps: true,
 });
 
-module.exports = Item;
+module.exports = Recipe;

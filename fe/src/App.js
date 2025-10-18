@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
 import CrudPage from "./pages/CrudPage";
-import MarketPage from "./pages/MarketPage";
+import RecipePage from "./pages/RecipePage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ProtectedRoute from "./ProtectedRoute";
@@ -15,11 +15,10 @@ function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Check if user is already logged in on mount
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const data = await getMe(); // fetch current user from cookie
+        const data = await getMe();
         setUser(data.user);
       } catch {
         setUser(null);
@@ -32,7 +31,7 @@ function App() {
 
   const handleLogout = async () => {
     try {
-      await logout(); // clear cookie
+      await logout();
     } catch (err) {
       console.error(err);
     } finally {
@@ -52,22 +51,8 @@ function App() {
         <Route path="/register" element={<Register onRegister={setUser} />} />
 
         {/* Protected Routes */}
-        <Route
-          path="/items"
-          element={
-            <ProtectedRoute user={user}>
-              <CrudPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/market"
-          element={
-            <ProtectedRoute user={user}>
-              <MarketPage />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/crud" element={<ProtectedRoute user={user}><CrudPage /></ProtectedRoute>} />
+        <Route path="/recipes" element={<ProtectedRoute user={user}><RecipePage /></ProtectedRoute>} />
       </Routes>
     </Router>
   );

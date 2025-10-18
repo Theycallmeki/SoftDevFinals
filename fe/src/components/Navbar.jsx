@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom';
 function Navbar({ user, onLogout }) {
   return (
     <nav style={styles.navbar}>
-      <h2 style={styles.title}>🛒 Marketplace</h2>
+      <h2 style={styles.title}>FOODTANDA</h2>
       <div>
         <Link to="/" style={styles.link}>Home</Link>
         
         {/* Show only if logged in */}
         {user && (
           <>
-            <Link to="/items" style={styles.link}>Manage Items</Link>
-            <Link to="/market" style={styles.link}>Marketplace</Link>
+            <Link to="/crud" style={styles.link}>Manage Recipes</Link>
+            <Link to="/recipes" style={styles.link}>Recipes</Link>
             <button onClick={onLogout} style={styles.logoutBtn}>Logout</button>
           </>
         )}
@@ -31,7 +31,7 @@ function Navbar({ user, onLogout }) {
 
 const styles = {
   navbar: {
-    backgroundColor: '#333',
+    backgroundColor: '#ff007bff',
     color: 'white',
     padding: '15px 25px',
     display: 'flex',

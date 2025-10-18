@@ -3,7 +3,7 @@ const cors = require('cors');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const sequelize = require('./db');
-const itemRoutes = require('./routes/itemRoutes');
+const recipeRoutes = require('./routes/recipeRoutes'); // ✅ renamed
 const authRoutes = require('./routes/authRoutes');
 
 const app = express();
@@ -40,7 +40,7 @@ sequelize.sync()
 
 // ✅ Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/items', itemRoutes);
+app.use('/api/recipes', recipeRoutes); // ✅ updated base route
 
 // ✅ Root endpoint
 app.get('/', (req, res) => res.send('🚀 Express API is running!'));

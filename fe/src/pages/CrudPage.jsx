@@ -1,24 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { getItems, addItem, updateItem, deleteItem } from '../api/ItemApi';
+import { getRecipes, addRecipe, updateRecipe, deleteRecipe } from '../api/RecipeApi';
 
 function CrudPage() {
-  const [items, setItems] = useState([]);
-  const [form, setForm] = useState({ name: '', price: '', stock: '', description: '', picture: null });
+  const [recipes, setRecipes] = useState([]);
+  const [form, setForm] = useState({
+    title: '',
+    ingredients: '',
+    instructions: '',
+    image: null,
+  });
   const [editId, setEditId] = useState(null);
 
   useEffect(() => {
-    loadItems();
+    loadRecipes();
   }, []);
 
-  const loadItems = async () => {
-    const data = await getItems();
-    setItems(data);
+  const loadRecipes = async () => {
+    try {
+      const data = await getRecipes();
+      setRecipes(data);
+    } catch (err) {
+      console.error('Error loading recipes:', err);
+    }
   };
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (files) {
-      setForm({ ...form, picture: files[0] });
+      setForm({ ...form, image: files[0] });
     } else {
       setForm({ ...form, [name]: value });
     }
@@ -26,66 +35,94 @@ function CrudPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (editId) {
-      await updateItem(editId, form);
-      setEditId(null);
-    } else {
-      await addItem(form);
+    try {
+      if (editId) {
+        await updateRecipe(editId, form);
+        setEditId(null);
+      } else {
+        await addRecipe(form);
+      }
+      setForm({ title: '', ingredients: '', instructions: '', image: null });
+      loadRecipes();
+    } catch (err) {
+      console.error('Error saving recipe:', err);
     }
-    setForm({ name: '', price: '', stock: '', description: '', picture: null });
-    loadItems();
   };
 
-  const handleEdit = (item) => {
-    setForm({ ...item, picture: null }); // reset picture on edit
-    setEditId(item.id);
+  const handleEdit = (recipe) => {
+    setForm({
+      title: recipe.title,
+      ingredients: recipe.ingredients,
+      instructions: recipe.instructions,
+      image: null, // image not reloaded during edit
+    });
+    setEditId(recipe.id);
   };
 
   const handleDelete = async (id) => {
-    await deleteItem(id);
-    loadItems();
+    try {
+      await deleteRecipe(id);
+      loadRecipes();
+    } catch (err) {
+      console.error('Error deleting recipe:', err);
+    }
   };
 
   return (
     <div style={{ padding: 20 }}>
-      <h1>🧾 Manage Items</h1>
+      <h1>🍳 Manage Recipes</h1>
 
       <form onSubmit={handleSubmit} style={{ marginBottom: 20 }}>
-        <input name="name" placeholder="Name" value={form.name} onChange={handleChange} required />
-        <input name="price" type="number" placeholder="Price" value={form.price} onChange={handleChange} required />
-        <input name="stock" type="number" placeholder="Stock" value={form.stock} onChange={handleChange} required />
-        <input name="description" placeholder="Description" value={form.description} onChange={handleChange} />
-        <input type="file" name="picture" onChange={handleChange} accept="image/*" />
+        <input
+          name="title"
+          placeholder="Recipe Title"
+          value={form.title}
+          onChange={handleChange}
+          required
+        />
+        <textarea
+          name="ingredients"
+          placeholder="Ingredients"
+          value={form.ingredients}
+          onChange={handleChange}
+          required
+        />
+        <textarea
+          name="instructions"
+          placeholder="Instructions"
+          value={form.instructions}
+          onChange={handleChange}
+          required
+        />
+        <input type="file" name="image" onChange={handleChange} accept="image/*" />
 
-        <button type="submit">{editId ? 'Update' : 'Add'} Item</button>
+        <button type="submit">{editId ? 'Update' : 'Add'} Recipe</button>
       </form>
 
       <table border="1" cellPadding="10" style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr style={{ backgroundColor: '#eee' }}>
             <th>ID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Stock</th>
-            <th>Description</th>
-            <th>Picture</th>
+            <th>Title</th>
+            <th>Ingredients</th>
+            <th>Instructions</th>
+            <th>Image</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {items.length > 0 ? (
-            items.map((item) => (
-              <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.name}</td>
-                <td>{item.price}</td>
-                <td>{item.stock}</td>
-                <td>{item.description}</td>
+          {recipes.length > 0 ? (
+            recipes.map((recipe) => (
+              <tr key={recipe.id}>
+                <td>{recipe.id}</td>
+                <td>{recipe.title}</td>
+                <td style={{ whiteSpace: 'pre-wrap' }}>{recipe.ingredients}</td>
+                <td style={{ whiteSpace: 'pre-wrap' }}>{recipe.instructions}</td>
                 <td>
-                  {item.picture ? (
+                  {recipe.image ? (
                     <img
-                      src={`http://localhost:5000${item.picture}`}
-                      alt={item.name}
+                      src={`http://localhost:5000${recipe.image}`}
+                      alt={recipe.title}
                       style={{ width: 80, height: 80, objectFit: 'cover' }}
                     />
                   ) : (
@@ -93,14 +130,18 @@ function CrudPage() {
                   )}
                 </td>
                 <td>
-                  <button onClick={() => handleEdit(item)}>✏️</button>
-                  <button onClick={() => handleDelete(item.id)} style={{ marginLeft: 5 }}>❌</button>
+                  <button onClick={() => handleEdit(recipe)}>✏️</button>
+                  <button onClick={() => handleDelete(recipe.id)} style={{ marginLeft: 5 }}>
+                    ❌
+                  </button>
                 </td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan="7" style={{ textAlign: 'center' }}>No items found</td>
+              <td colSpan="6" style={{ textAlign: 'center' }}>
+                No recipes found
+              </td>
             </tr>
           )}
         </tbody>
