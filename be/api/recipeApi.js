@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const Recipe = require('../models/recipe');
+const User = require('../models/user');
 
 // Helper to delete old image file
 async function removeFileIfExists(filepath) {
@@ -17,6 +18,7 @@ exports.listAllRecipes = async (req, res) => {
   try {
     const recipes = await Recipe.findAll({
       order: [['createdAt', 'DESC']],
+      include: [{ model: User, attributes: ['id', 'username'] }],
     });
     res.json(recipes);
   } catch (err) {
@@ -30,6 +32,7 @@ exports.listUserRecipes = async (req, res) => {
     const recipes = await Recipe.findAll({
       where: { userId: req.user.id },
       order: [['createdAt', 'DESC']],
+      include: [{ model: User, attributes: ['id', 'username'] }],
     });
     res.json(recipes);
   } catch (err) {
@@ -40,7 +43,9 @@ exports.listUserRecipes = async (req, res) => {
 // Get a single recipe
 exports.getRecipe = async (req, res) => {
   try {
-    const recipe = await Recipe.findByPk(req.params.id);
+    const recipe = await Recipe.findByPk(req.params.id, {
+     include: [{ model: User, attributes: ['id', 'username'] }],
+    });
     if (!recipe) return res.status(404).json({ message: 'Recipe not found' });
     if (recipe.userId !== req.user.id) return res.status(403).json({ message: 'Forbidden' });
     res.json(recipe);
@@ -54,10 +59,9 @@ exports.createRecipe = async (req, res) => {
   try {
     const { title, ingredients, instructions } = req.body;
     if (!title || !ingredients || !instructions)
-      return res.status(400).json({ message: 'Title, ingredients, and instructions are required' });
+      return res.status(400).json({ message: 'Missing required fields' });
 
     const image = req.file ? `/uploads/${req.file.filename}` : null;
-
     const recipe = await Recipe.create({
       title,
       ingredients,
@@ -66,7 +70,11 @@ exports.createRecipe = async (req, res) => {
       userId: req.user.id,
     });
 
-    res.status(201).json(recipe);
+    const created = await Recipe.findByPk(recipe.id, {
+      include: [{ model: User, attributes: ['id', 'username'] }],
+    });
+
+    res.status(201).json(created);
   } catch (err) {
     res.status(500).json({ message: 'Failed to create recipe', error: err.message });
   }

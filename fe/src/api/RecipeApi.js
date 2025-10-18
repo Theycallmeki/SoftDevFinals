@@ -61,3 +61,13 @@ export const getAllRecipes = async () => {
   if (!res.ok) throw new Error('Failed to fetch all recipes');
   return res.json();
 };
+
+// Fetch single recipe (public)
+export const getRecipeById = async (id) => {
+  const res = await fetch(`http://localhost:5000/api/recipes/${id}`, {
+    method: 'GET',
+    credentials: 'include',
+  });
+  if (!res.ok) throw new Error('Failed to fetch recipe');
+  return res.json();
+};

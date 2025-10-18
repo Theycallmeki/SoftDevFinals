@@ -1,6 +1,7 @@
 // models/recipe.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../db');
+const User = require('./user');
 
 const Recipe = sequelize.define('Recipe', {
   id: {
@@ -32,5 +33,9 @@ const Recipe = sequelize.define('Recipe', {
   tableName: 'recipes',
   timestamps: true,
 });
+
+// Define relationships
+User.hasMany(Recipe, { foreignKey: 'userId' });
+Recipe.belongsTo(User, { foreignKey: 'userId' });
 
 module.exports = Recipe;

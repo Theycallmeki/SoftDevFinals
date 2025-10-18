@@ -5,10 +5,12 @@ import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
 import CrudPage from "./pages/CrudPage";
 import RecipePage from "./pages/RecipePage";
+import RecipeDetail from "./pages/RecipeDetail";
 import BookmarksPage from "./pages/BookMarkPage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ProtectedRoute from "./ProtectedRoute";
+
 
 import { getMe, logout } from "./api/authApi";
 
@@ -49,9 +51,9 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login onLogin={setUser} />} />
         <Route path="/register" element={<Register onRegister={setUser} />} />
-
         <Route path="/crud" element={<ProtectedRoute user={user}><CrudPage /></ProtectedRoute>} />
         <Route path="/recipes" element={<ProtectedRoute user={user}><RecipePage /></ProtectedRoute>} />
+        <Route path="/recipes/:id" element={<ProtectedRoute user={user}><RecipeDetail /></ProtectedRoute>} />
         <Route path="/bookmarks" element={<ProtectedRoute user={user}><BookmarksPage /></ProtectedRoute>} />
       </Routes>
     </Router>

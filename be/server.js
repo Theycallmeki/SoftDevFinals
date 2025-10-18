@@ -6,7 +6,7 @@ const sequelize = require('./db');
 const recipeRoutes = require('./routes/recipeRoutes'); 
 const authRoutes = require('./routes/authRoutes');
 const bookmarkRoutes = require('./routes/bookmarkRoutes');
-
+const commentRoutes = require('./routes/commentRoutes');
 
 const app = express();
 
@@ -44,7 +44,7 @@ sequelize.sync()
 app.use('/api/auth', authRoutes);
 app.use('/api/recipes', recipeRoutes); 
 app.use('/api/bookmarks', bookmarkRoutes);
-
+app.use('/api/comments', commentRoutes);
 
 // ✅ Root endpoint
 app.get('/', (req, res) => res.send('🚀 Express API is running!'));

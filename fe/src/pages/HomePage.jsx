@@ -4,6 +4,7 @@ import logo from "../assets/logo.png";
 
 function HomePage() {
   return (
+
     <div style={styles.container}>
       <div style={styles.hero}>
         <div style={styles.logoContainer}>
