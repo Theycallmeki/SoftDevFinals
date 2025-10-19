@@ -47,7 +47,10 @@ exports.getRecipe = async (req, res) => {
      include: [{ model: User, attributes: ['id', 'username'] }],
     });
     if (!recipe) return res.status(404).json({ message: 'Recipe not found' });
-    if (recipe.userId !== req.user.id) return res.status(403).json({ message: 'Forbidden' });
+
+    // This part restricts current logged in user to view others
+    // if (recipe.userId !== req.user.id) return res.status(403).json({ message: 'Forbidden' }); 
+
     res.json(recipe);
   } catch (err) {
     res.status(500).json({ message: 'Failed to get recipe', error: err.message });
