@@ -23,3 +23,4 @@ const sequelize = new Sequelize('softdev', 'postgres', '12345678', {
 });
 
 module.exports = sequelize;
+

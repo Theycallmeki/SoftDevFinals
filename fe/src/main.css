@@ -235,15 +235,12 @@
 /* Container */
 .recipe-detail-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-  margin: 20px;
-  justify-content: center;
-  background: linear-gradient(135deg, #ffe4ec 0%, #ffd6e0 100%);
-  background-size: cover;  /* ensures gradient/image covers entire area */
-  background-repeat: no-repeat;
-  min-height: 100vh;      /* full viewport height */
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  gap: 20px;
 }
+
 
 /* Image */
 .recipe-detail-image {
@@ -265,7 +262,17 @@
   color: #888;
 }
 
-/* Info Section */
+/* Recipe Info Section */
+.recipe-detail-info {
+  width: 100%;
+  max-width: 800px;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
 .recipe-detail-info {
   flex: 2;
   min-width: 350px;
@@ -295,27 +302,27 @@
 /* Sections */
 .section-label {
   font-weight: 600;
-  margin-bottom: 5px;
+  margin-top: 15px;
 }
 
 .section-content {
   white-space: pre-line; /* allows line breaks and spacing */
   line-height: 1.5;
-  margin-bottom: -30px;
+  margin-bottom: 10px;
   color: #333;
 }
 
 
 /* Bookmark Button */
 .bookmark-btn {
-  padding: 8px 16px;
-  border-radius: 6px;
+  display: inline-block;
+  margin-top: 20px; /* adds space below instructions */
+  padding: 10px 16px;
+  font-size: 16px;
+  border-radius: 8px;
   border: none;
   cursor: pointer;
-  color: #fff;
-  font-weight: 600;
-  transition: background-color 0.2s ease;
-  align-self: flex-start;
+  transition: background-color 0.3s;
 }
 
 .bookmark-btn.bookmarked {
@@ -346,6 +353,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-top: 30px;
 }
 
 .comments-title {

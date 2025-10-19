@@ -40,12 +40,11 @@ export default function BookmarksPage() {
   }, []);
 
   // ✅ Unsave and redirect
-  const handleUnsave = async (recipeId) => {
+  const handleUnsave = async (recipeId, e) => {
+    e.stopPropagation(); // Prevent navigation when clicking Unsave
     try {
       await removeBookmark(recipeId);
-      // Remove from state
       setBookmarks((prev) => prev.filter((r) => r.id !== recipeId));
-      // Redirect to Recipe Marketplace
       navigate("/recipes");
     } catch (err) {
       console.error("Failed to unsave recipe:", err);
@@ -65,7 +64,21 @@ export default function BookmarksPage() {
       ) : (
         <div className="bookmarks-grid">
           {bookmarks.map((recipe) => (
-            <div className="Recipe-Card" key={recipe.id}>
+            <div
+              className="Recipe-Card"
+              key={recipe.id}
+              onClick={() => navigate(`/recipes/${recipe.id}`)} // ✅ Navigate to recipe detail
+              style={{
+                cursor: "pointer",
+                transition: "transform 0.2s ease",
+              }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.transform = "scale(1.02)")
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.transform = "scale(1)")
+              }
+            >
               {recipe.image && (
                 <img
                   src={`http://localhost:5000${recipe.image}`}
@@ -75,29 +88,33 @@ export default function BookmarksPage() {
               <div className="recipe-card-content">
                 <h3>{recipe.title}</h3>
                 <div className="recipe-section">
-  <p><strong>Ingredients:</strong></p>
-  <pre className="recipe-text">{recipe.ingredients}</pre>
+                  <p><strong>Ingredients:</strong></p>
+                  <pre className="recipe-text">{recipe.ingredients}</pre>
 
-  <p><strong>Instructions:</strong></p>
-  <pre className="recipe-text">{recipe.instructions}</pre>
-</div>
+                  <p><strong>Instructions:</strong></p>
+                  <pre className="recipe-text">{recipe.instructions}</pre>
+                </div>
 
                 {/* ✅ Unsave Button */}
                 <button
-                  onClick={() => handleUnsave(recipe.id)}
+                  onClick={(e) => handleUnsave(recipe.id, e)} // Prevent card click
                   style={{
-                    marginTop: '10px',
-                    padding: '6px 12px',
-                    borderRadius: '6px',
-                    border: 'none',
-                    backgroundColor: '#ff4da6',
-                    color: '#fff',
+                    marginTop: "10px",
+                    padding: "6px 12px",
+                    borderRadius: "6px",
+                    border: "none",
+                    backgroundColor: "#ff4da6",
+                    color: "#fff",
                     fontWeight: 600,
-                    cursor: 'pointer',
-                    transition: 'background-color 0.2s ease',
+                    cursor: "pointer",
+                    transition: "background-color 0.2s ease",
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#ff1a8c')}
-                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#ff4da6')}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#ff1a8c")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#ff4da6")
+                  }
                 >
                   Unsave
                 </button>
