@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react'; 
 import { useParams, useNavigate } from 'react-router-dom';
 import { getRecipeById } from '../api/RecipeApi';
 import { addBookmark, removeBookmark, getUserBookmarks } from '../api/bookmarkApi';
 import { getMe } from '../api/authApi';
 import { getComments, addComment } from '../api/commentApi';
+import "../main.css";
 
 export default function RecipeDetailPage() {
   const { id } = useParams();
@@ -17,7 +18,6 @@ export default function RecipeDetailPage() {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
 
-  // ✅ Fetch single recipe directly
   const loadRecipe = useCallback(async () => {
     try {
       const data = await getRecipeById(id);
@@ -29,7 +29,6 @@ export default function RecipeDetailPage() {
     }
   }, [id]);
 
-  // ✅ Fetch user + bookmarks
   const loadUserAndBookmarks = useCallback(async () => {
     try {
       const userData = await getMe();
@@ -42,7 +41,6 @@ export default function RecipeDetailPage() {
     }
   }, [id]);
 
-  // ✅ Fetch comments
   const loadComments = useCallback(async () => {
     try {
       const data = await getComments(id);
@@ -93,78 +91,86 @@ export default function RecipeDetailPage() {
   const isOwner = currentUser?.id === recipe?.userId;
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row', margin: '20px' }}>
-      <div style={{ flex: 1 }}>
+    <div className="recipe-detail-container">
+      <div className="recipe-detail-image">
         {recipe.image ? (
-          <img
-            src={`http://localhost:5000${recipe.image}`}
-            alt={recipe.title}
-            style={{ width: '100%', borderRadius: '5px' }}
-          />
+          <img src={`http://localhost:5000${recipe.image}`} alt={recipe.title} />
         ) : (
-          <p>No image available</p>
+          <p className="no-image-text">No image available</p>
         )}
       </div>
 
-      <div style={{ flex: 2, marginLeft: '20px' }}>
-        <h2>{recipe.title}</h2>
+      <div className="recipe-detail-info">
+        {/* Title and Author */}
+        <div>
+          <h2 className="recipe-detail-title">{recipe.title}</h2>
+          <p className="recipe-detail-author">
+            Recipe by: <strong>{recipe.User?.username || 'Unknown User'}</strong>
+          </p>
+        </div>
 
-        {/* Show creator username */}
-        <p style={{ color: '#666', fontStyle: 'italic' }}>
-          Recipe by: <strong>{recipe.User?.username || 'Unknown User'}</strong>
-        </p>
+        {/* Ingredients */}
+        <div>
+          <p className="section-label">Ingredients:</p>
+          <p className="section-content">{recipe.ingredients}</p>
+        </div>
+        <div>
+          <p className="section-label">Instructions:</p>
+          <p className="section-content">{recipe.instructions}</p>
+        </div>
 
-        <p><strong>Ingredients:</strong></p>
-        <p>{recipe.ingredients}</p>
+      {/* Bookmark Button */}
+{!isOwner && (
+  <button
+    className={`bookmark-btn ${bookmarked ? 'bookmarked' : 'not-bookmarked'}`}
+    onClick={async () => {
+      await handleBookmark(); // Save or unsave
+      if (!bookmarked) {
+        // ✅ Redirect only after saving (not when removing)
+        setTimeout(() => navigate('/bookmarks'), 300);
+      }
+    }}
+  >
+    {bookmarked ? '★ Remove Bookmark' : '☆ Add to Bookmarks'}
+  </button>
+)}
 
-        <p><strong>Instructions:</strong></p>
-        <p>{recipe.instructions}</p>
 
-        {!isOwner && (
-          <button onClick={handleBookmark}>
-            {bookmarked ? '★ Remove Bookmark' : '☆ Add to Bookmarks'}
-          </button>
-        )}
 
-        {message && <p>{message}</p>}
+        {message && <p className="recipe-detail-message">{message}</p>}
 
         {/* Comments */}
-        <div style={{ marginTop: '30px' }}>
-          <h3>Comments</h3>
+        <div className="comments-section">
+          <h3 className="comments-title">Comments</h3>
           {comments.length > 0 ? (
             comments.map((c) => (
-              <div key={c.id} style={{ borderBottom: '1px solid #ddd', padding: '10px 0' }}>
-                <p style={{ margin: 0 }}>
+              <div key={c.id} className="comment-item">
+                <p>
                   <strong>{c.User?.username || 'Anonymous'}:</strong> {c.text}
                 </p>
-                <small style={{ color: '#888' }}>
-                  {new Date(c.createdAt).toLocaleString()}
-                </small>
+                <small>{new Date(c.createdAt).toLocaleString()}</small>
               </div>
             ))
           ) : (
-            <p>No comments yet. Be the first to comment!</p>
+            <p className="no-comments-text">No comments yet. Be the first to comment!</p>
           )}
 
-          {currentUser ? (
-            <div style={{ marginTop: '15px' }}>
+          {currentUser && (
+            <div className="comment-form">
               <textarea
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
                 placeholder="Write your comment..."
-                style={{ width: '100%', height: '80px', borderRadius: '5px', padding: '8px' }}
-              ></textarea>
-              <button onClick={handleAddComment} style={{ marginTop: '8px' }}>
-                Post Comment
-              </button>
+              />
+              <button onClick={handleAddComment}>Post Comment</button>
             </div>
-          ) : (
-            <p style={{ color: '#888' }}>Log in to post a comment.</p>
           )}
         </div>
 
-        <br />
-        <button onClick={() => navigate('/recipes')}>← Back to Recipes</button>
+        {/* Back Button */}
+        <button className="back-btn" onClick={() => navigate('/recipes')}>
+          ← Back to Recipes
+        </button>
       </div>
     </div>
   );

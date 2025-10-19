@@ -1,3 +1,4 @@
+/* Global Styles */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +11,248 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Login/Register Page Styles */
+.login-page,
+.register-page {
+  min-height: calc(100vh - 70px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #fff0f6 0%, #ffe6f0 50%, #ffd9eb 100%);
+  padding: 2rem;
+}
+
+.login-card,
+.register-card {
+  background: #fff;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  border: 2px solid #f9a8d4;
+  margin-bottom: 100px;
+}
+
+.login-card h2,
+.register-card h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #be185d;
+}
+
+.login-form,
+.register-form {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.login-form input,
+.register-form input {
+  flex: 1 1 45%;
+  padding: 0.75rem;
+  border: 1px solid #f9a8d4;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.login-form input:focus,
+.register-form input:focus {
+  outline: none;
+  border-color: #ec4899;
+  box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.2);
+}
+
+.login-form button,
+.register-form button {
+  padding: 0.75rem 1.5rem;
+  background-color: #ec4899;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.login-form button:hover,
+.register-form button:hover {
+  background-color: #db2777;
+}
+
+.login-form button:disabled,
+.register-form button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.error-text {
+  color: #e11d48;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.login-card p,
+.register-card p {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.login-card a,
+.register-card a {
+  color: #ec4899;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-card a:hover,
+.register-card a:hover {
+  text-decoration: underline;
+}
+
+/* ===== Bookmarks Page Styles ===== */
+.bookmarks-page {
+  min-height: calc(100vh - 70px);
+  background: linear-gradient(135deg, #ffe4ec 0%, #ffd6e0 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem 2rem;
+}
+
+.bookmarks-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: #FF2B85;
+  text-align: center;
+  margin-top: 10px;
+
+}
+
+/* Grid container */
+.bookmarks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.8rem;
+  width: 100%;
+  max-width: 1300px;
+}
+
+/* Recipe Card Styles */
+.Recipe-Card {
+  background: #fff0f6;
+  border-radius: 1rem;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box; /* ensure padding/borders don't break layout */
+  width: 100%; /* ensures full width of grid cell */
+}
+
+.recipe-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(255, 192, 203, 0.5);
+}
+
+.Recipe-Card img {
+ width: 100%;
+  height: 200px;
+  object-fit: cover; /* keeps aspect ratio while filling area */
+  border-radius: 10px;
+}
+
+/* Card content */
+.recipe-card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  color: #4a154b;
+  gap: 0.5rem; /* spacing between elements inside content */
+}
+
+/* Title & text */
+.recipe-card-content h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #be185d;
+}
+
+.recipe-card-content p {
+  font-size: 0.95rem;
+  margin-bottom: 0.4rem;
+  line-height: 1.4;
+  word-wrap: break-word;
+  white-space: pre-line; /* ✅ preserves line breaks and wraps text */
+}
+
+
+/* Actions like unsave button */
+.recipe-card-actions {
+  display: flex;
+  justify-content: flex-end; /* align buttons to right */
+  align-items: center;
+  margin-top: auto;
+  gap: 0.5rem;
+}
+
+.loading-text,
+.error-text,
+.empty-text {
+  font-size: 1rem;
+  color: #93324d;
+  text-align: center;
+  margin-top: 2rem;
+}
+.recipe-section {
+  margin-top: 0.5rem;
+}
+
+.recipe-section p {
+  margin-bottom: 0.3rem;
+  color: #be185d;
+  font-weight: 600;
+}
+
+.recipe-text {
+  white-space: pre-line; /* keeps line breaks */
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: #4a154b;
+  margin-left: 1rem; /* ✅ adds indentation */
+  margin-bottom: 0.8rem;
+}
+
+/* ===== Responsive Fix ===== */
+@media screen and (max-width: 768px) {
+  .bookmarks-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .recipe-card img {
+    height: 150px;
+  }
+
+  .recipe-card-content h3 {
+    font-size: 1rem;
+  }
+
+  .recipe-card-content p {
+    font-size: 0.85rem;
+  }
 }

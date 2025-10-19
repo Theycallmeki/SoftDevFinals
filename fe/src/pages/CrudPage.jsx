@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getRecipes, addRecipe, updateRecipe, deleteRecipe } from '../api/RecipeApi';
+import '../main.css';
 
 function CrudPage() {
   const [recipes, setRecipes] = useState([]);
@@ -54,7 +55,7 @@ function CrudPage() {
       title: recipe.title,
       ingredients: recipe.ingredients,
       instructions: recipe.instructions,
-      image: null, // image not reloaded during edit
+      image: null,
     });
     setEditId(recipe.id);
   };
@@ -69,83 +70,105 @@ function CrudPage() {
   };
 
   return (
-    <div style={{ padding: 20 }}>
-      <h1>🍳 Manage Recipes</h1>
+    <div className="crud-page-container">
+      <h1 className="crud-page-title">Manage Recipes</h1>
 
-      <form onSubmit={handleSubmit} style={{ marginBottom: 20 }}>
-        <input
-          name="title"
-          placeholder="Recipe Title"
-          value={form.title}
-          onChange={handleChange}
-          required
-        />
-        <textarea
-          name="ingredients"
-          placeholder="Ingredients"
-          value={form.ingredients}
-          onChange={handleChange}
-          required
-        />
-        <textarea
-          name="instructions"
-          placeholder="Instructions"
-          value={form.instructions}
-          onChange={handleChange}
-          required
-        />
-        <input type="file" name="image" onChange={handleChange} accept="image/*" />
+      <div className="crud-page-flex">
+        {/* Recipe Form */}
+        <form onSubmit={handleSubmit} className="crud-form">
+          <h2 className="crud-form-title">{editId ? 'Edit Recipe' : 'Add Recipe'}</h2>
 
-        <button type="submit">{editId ? 'Update' : 'Add'} Recipe</button>
-      </form>
+          <input
+            name="title"
+            placeholder="Recipe Title"
+            value={form.title}
+            onChange={handleChange}
+            required
+            className="crud-form-input"
+          />
 
-      <table border="1" cellPadding="10" style={{ width: '100%', borderCollapse: 'collapse' }}>
-        <thead>
-          <tr style={{ backgroundColor: '#eee' }}>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Ingredients</th>
-            <th>Instructions</th>
-            <th>Image</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {recipes.length > 0 ? (
-            recipes.map((recipe) => (
-              <tr key={recipe.id}>
-                <td>{recipe.id}</td>
-                <td>{recipe.title}</td>
-                <td style={{ whiteSpace: 'pre-wrap' }}>{recipe.ingredients}</td>
-                <td style={{ whiteSpace: 'pre-wrap' }}>{recipe.instructions}</td>
-                <td>
-                  {recipe.image ? (
-                    <img
-                      src={`http://localhost:5000${recipe.image}`}
-                      alt={recipe.title}
-                      style={{ width: 80, height: 80, objectFit: 'cover' }}
-                    />
-                  ) : (
-                    'No Image'
-                  )}
-                </td>
-                <td>
-                  <button onClick={() => handleEdit(recipe)}>✏️</button>
-                  <button onClick={() => handleDelete(recipe.id)} style={{ marginLeft: 5 }}>
-                    ❌
-                  </button>
-                </td>
+          <textarea
+            name="ingredients"
+            placeholder="Ingredients"
+            value={form.ingredients}
+            onChange={handleChange}
+            required
+            className="crud-form-textarea"
+          />
+
+          <textarea
+            name="instructions"
+            placeholder="Instructions"
+            value={form.instructions}
+            onChange={handleChange}
+            required
+            className="crud-form-textarea"
+          />
+
+          <input
+            type="file"
+            name="image"
+            onChange={handleChange}
+            accept="image/*"
+            className="crud-form-file"
+          />
+
+          <button type="submit" className="crud-form-submit">
+            {editId ? 'Update Recipe' : 'Add Recipe'}
+          </button>
+        </form>
+
+        {/* Recipes Table */}
+        <div className="crud-table-container">
+          <table className="crud-table">
+            <thead>
+              <tr className="crud-table-header">
+                <th>ID</th>
+                <th>Title</th>
+                <th>Ingredients</th>
+                <th>Instructions</th>
+                <th>Image</th>
+                <th>Actions</th>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="6" style={{ textAlign: 'center' }}>
-                No recipes found
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+            </thead>
+            <tbody>
+              {recipes.length > 0 ? (
+                recipes.map((recipe) => (
+                  <tr key={recipe.id}>
+                    <td>{recipe.id}</td>
+                    <td>{recipe.title}</td>
+                    <td className="pre-wrap">{recipe.ingredients}</td>
+                    <td className="pre-wrap">{recipe.instructions}</td>
+                    <td>
+                      {recipe.image ? (
+                        <img
+                          src={`http://localhost:5000${recipe.image}`}
+                          alt={recipe.title}
+                          className="crud-table-image"
+                        />
+                      ) : (
+                        'No Image'
+                      )}
+                    </td>
+                    <td>
+                      <button onClick={() => handleEdit(recipe)}>✏️</button>
+                      <button onClick={() => handleDelete(recipe.id)} className="crud-delete-btn">
+                        ❌
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="6" className="text-center">
+                    No recipes found
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }

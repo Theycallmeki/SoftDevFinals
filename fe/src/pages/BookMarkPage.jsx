@@ -1,22 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { getUserBookmarks } from '../api/bookmarkApi';
-import { getMe } from '../api/authApi';
-import RecipeCard from '../components/RecipeCard';
+import React, { useEffect, useState } from "react"; 
+import { getUserBookmarks, removeBookmark } from "../api/bookmarkApi";
+import { getMe } from "../api/authApi";
+import { useNavigate } from "react-router-dom";
+import "../index.css";
 
 export default function BookmarksPage() {
   const [bookmarks, setBookmarks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
+
+  const navigate = useNavigate();
 
   const loadBookmarks = async () => {
     setLoading(true);
-    setError('');
+    setError("");
     try {
       const data = await getUserBookmarks();
       setBookmarks(data);
     } catch (err) {
-      setError(err.message || 'Failed to load bookmarks');
+      setError(err.message || "Failed to load bookmarks");
     } finally {
       setLoading(false);
     }
@@ -36,24 +39,70 @@ export default function BookmarksPage() {
     loadBookmarks();
   }, []);
 
-  if (loading) return <p className="text-center mt-10">Loading bookmarks...</p>;
-  if (error) return <p className="text-center text-red-500 mt-10">{error}</p>;
+  // ✅ Unsave and redirect
+  const handleUnsave = async (recipeId) => {
+    try {
+      await removeBookmark(recipeId);
+      // Remove from state
+      setBookmarks((prev) => prev.filter((r) => r.id !== recipeId));
+      // Redirect to Recipe Marketplace
+      navigate("/recipes");
+    } catch (err) {
+      console.error("Failed to unsave recipe:", err);
+    }
+  };
 
   return (
-    <div className="max-w-4xl mx-auto mt-10 px-4">
-      <h2 className="text-2xl font-bold mb-4">My Bookmarked Recipes</h2>
+    <div className="bookmarks-page">
+      <h2 className="bookmarks-title">My Saved Recipes</h2>
 
-      {bookmarks.length === 0 ? (
-        <p>You haven’t bookmarked any recipes yet.</p>
+      {loading ? (
+        <p className="loading-text">Loading bookmarks...</p>
+      ) : error ? (
+        <p className="error-text">{error}</p>
+      ) : bookmarks.length === 0 ? (
+        <p className="empty-text">You haven’t saved any recipes yet.</p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bookmarks-grid">
           {bookmarks.map((recipe) => (
-            <RecipeCard
-              key={recipe.id}
-              recipe={recipe}
-              currentUser={currentUser}
-              // no onDelete here, delete feature removed
-            />
+            <div className="Recipe-Card" key={recipe.id}>
+              {recipe.image && (
+                <img
+                  src={`http://localhost:5000${recipe.image}`}
+                  alt={recipe.title}
+                />
+              )}
+              <div className="recipe-card-content">
+                <h3>{recipe.title}</h3>
+                <div className="recipe-section">
+  <p><strong>Ingredients:</strong></p>
+  <pre className="recipe-text">{recipe.ingredients}</pre>
+
+  <p><strong>Instructions:</strong></p>
+  <pre className="recipe-text">{recipe.instructions}</pre>
+</div>
+
+                {/* ✅ Unsave Button */}
+                <button
+                  onClick={() => handleUnsave(recipe.id)}
+                  style={{
+                    marginTop: '10px',
+                    padding: '6px 12px',
+                    borderRadius: '6px',
+                    border: 'none',
+                    backgroundColor: '#ff4da6',
+                    color: '#fff',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    transition: 'background-color 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#ff1a8c')}
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#ff4da6')}
+                >
+                  Unsave
+                </button>
+              </div>
+            </div>
           ))}
         </div>
       )}

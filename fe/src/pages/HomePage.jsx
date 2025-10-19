@@ -1,148 +1,88 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Sparkles } from "lucide-react";
 import logo from "../assets/logo.png";
+import { getMe } from "../api/authApi"; // make sure this exists
+import "../main.css";
 
 function HomePage() {
-  return (
+  const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true); // new state to handle loading
 
-    <div style={styles.container}>
-      <div style={styles.hero}>
-        <div style={styles.logoContainer}>
-          <div style={styles.pandaCircle}>
-            <img src={logo} alt="FoodTanda Logo" style={styles.logoImage} />
+  useEffect(() => {
+    const loadUser = async () => {
+      try {
+        const data = await getMe();
+        setCurrentUser(data?.user || null);
+      } catch {
+        setCurrentUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadUser();
+  }, []);
+
+  return (
+    <div className="home-container">
+      {/* Show username ONLY if user is logged in */}
+      {!loading && currentUser && (
+        <div className="home-username">
+          Hello, <strong>{currentUser.username}</strong>
+        </div>
+      )}
+
+      <div className="home-hero">
+        {/* LEFT COLUMN */}
+        <div className="home-left-column">
+          <div className="logo-container">
+            <div className="panda-circle">
+              <img src={logo} alt="FoodTanda Logo" className="logo-image" />
+            </div>
+            <h1 className="home-title">
+              <span className="food-text">FOOD</span>
+              <span className="pandak-text">TANDA</span>
+            </h1>
+
+            <p className="home-subtitle">
+              <Sparkles size={20} className="icon" />
+              Your favorite food journey begins with one hungry soul,
+              <Sparkles size={20} className="icon" />
+            </p>
           </div>
-          <h1 style={styles.title}>
-            <span style={styles.foodText}>FOOD</span>
-            <span style={styles.pandakText}>TANDA</span>
-          </h1>
         </div>
 
-        <p style={styles.subtitle}>
-          <Sparkles size={20} style={styles.icon} />
-          Your favorite food journey begins with one hungry soul,
-          <Sparkles size={20} style={styles.icon} />
-        </p>
-
-        <div style={styles.storyContainer}>
-          <h2 style={styles.storyTitle}>The Origin of FoodTanda</h2>
-          <p style={styles.storyText}>
-            Long ago, in a quiet corner of the Philippines, there lived an old man named <strong>Jehu</strong>.
-            People fondly called him <strong>Tanda</strong>, for his hair was silver and his eyes carried the wisdom
-            of countless meals savored under a thousand sunsets. But Jehu was no ordinary man, he was a wanderer
-            with a heart that beat for flavors, aromas, and the stories hidden in every dish.
-          </p>
-
-          <p style={styles.storyText}>
-            One morning, as dawn painted the sky with golden light, Jehu set out on a journey that would
-            take him across oceans, mountains, and bustling cities. From the spicy streets of Bangkok to the
-            cobblestone cafés of Paris, from the smoky grills of Seoul to the humble carinderias of Manila,
-            Jehu tasted it all, learning that food was not merely to be eaten — it was to be felt, shared, remembered.
-          </p>
-
-          <p style={styles.storyText}>
-            As the years passed, Jehu grew older, yet his passion only deepened. Wherever he went, people began
-            to whisper his story — “There goes the old man who eats like the world belongs to him.”  
-            They called him <strong>FoodTanda</strong>, the elder who united cultures through a single bite.
-          </p>
-
-          <p style={styles.storyText}>
-            Now, his legend lives on. Every recipe, every aroma, every dish shared in this place
-            carries the spirit of Jehu — the man who believed that food is not just sustenance,
-            but the poetry of life itself.
-          </p>
+        {/* RIGHT COLUMN */}
+        <div className="home-right-column">
+          <div className="story-container">
+            <h2 className="story-title">The Origin of FoodTanda</h2>
+            <p className="story-text">
+              Long ago in a quiet Philippine town lived an old man named{" "}
+              <strong>Jehu</strong>, called <strong>Tanda</strong> for his
+              silver hair and wise eyes. He loved flavors, aromas, and the
+              stories behind every dish.
+            </p>
+            <p className="story-text">
+              One morning, Jehu began a journey across oceans and cities, from
+              Bangkok to Paris, Seoul to Manila, tasting food and discovering
+              that it was to be felt, shared, and remembered.
+            </p>
+            <p className="story-text">
+              As he grew older, his passion only deepened. People whispered
+              about the man who ate like the world belonged to him, calling him{" "}
+              <strong>FoodTanda</strong>, the elder who united cultures through
+              food.
+            </p>
+            <p className="story-text">
+              Today, his legend lives on. Every recipe shared here carries his
+              spirit, reminding us that food is not just sustenance but the
+              poetry of life.
+            </p>
+          </div>
         </div>
       </div>
     </div>
   );
 }
-
-const styles = {
-  container: {
-    minHeight: "100vh",
-    background: "linear-gradient(135deg, #fff0f6 0%, #ffe6f0 50%, #ffd9eb 100%)",
-    padding: "40px 20px",
-    overflowY: "auto",
-    fontFamily: "'Poppins', sans-serif",
-  },
-  hero: {
-    maxWidth: "900px",
-    margin: "0 auto",
-    textAlign: "center",
-    animation: "fadeIn 1.5s ease",
-  },
-  logoContainer: {
-    marginBottom: "30px",
-  },
-  pandaCircle: {
-    width: "130px",
-    height: "130px",
-    borderRadius: "50%",
-    background: "white",
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    overflow: "hidden",
-    boxShadow: "0 0 30px rgba(215, 15, 100, 0.4)",
-    marginBottom: "20px",
-    transition: "transform 0.3s ease, box-shadow 0.3s ease",
-  },
-  logoImage: {
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-    borderRadius: "50%",
-  },
-  title: {
-    fontSize: "64px",
-    fontWeight: "900",
-    margin: "0",
-    letterSpacing: "-2px",
-    textShadow: "2px 2px 12px rgba(255, 43, 133, 0.3)",
-  },
-  foodText: {
-    color: "#D70F64",
-  },
-  pandakText: {
-    color: "#FF2B85",
-  },
-  subtitle: {
-    fontSize: "22px",
-    color: "#666",
-    marginBottom: "40px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: "10px",
-  },
-  icon: {
-    display: "inline-block",
-  },
-  storyContainer: {
-    background: "white",
-    borderRadius: "24px",
-    padding: "50px 40px",
-    boxShadow: "0 0 60px rgba(215, 15, 100, 0.15)",
-    textAlign: "left",
-    lineHeight: "1.8",
-    position: "relative",
-    overflow: "hidden",
-    animation: "slideUp 1.8s ease",
-  },
-  storyTitle: {
-    fontSize: "36px",
-    fontWeight: "800",
-    color: "#D70F64",
-    marginBottom: "20px",
-    textAlign: "center",
-    textTransform: "uppercase",
-    letterSpacing: "1px",
-  },
-  storyText: {
-    fontSize: "18px",
-    color: "#444",
-    marginBottom: "20px",
-    textAlign: "justify",
-  },
-};
 
 export default HomePage;
