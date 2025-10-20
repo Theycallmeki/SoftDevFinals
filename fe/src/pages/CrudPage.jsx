@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getRecipes, addRecipe, updateRecipe, deleteRecipe } from '../api/RecipeApi';
-import '../main.css';
+import "../assets/crudPage.css"; 
 
 function CrudPage() {
   const [recipes, setRecipes] = useState([]);

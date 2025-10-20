@@ -1,0 +1,109 @@
+/* ==== Recipe Page Styles ==== */
+
+.recipe-page-container {
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 20px;
+  color: #333;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+}
+
+.recipe-page-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #2c2c2c;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.recipe-page-title::after {
+  content: '';
+  width: 60px;
+  height: 4px;
+  background-color: #f97316; /* accent orange */
+  display: block;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+.recipe-page-search {
+  width: 60%;
+  padding: 12px 16px;
+  border: 2px solid #ddd;
+  border-radius: 50px;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.recipe-page-search:focus {
+  border-color: #f97316;
+  box-shadow: 0 0 8px rgba(249, 115, 22, 0.3);
+}
+
+.recipe-page-search::placeholder {
+  color: #aaa;
+}
+
+/* Grid layout */
+.recipe-page-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.recipe-page-grid-item {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.recipe-page-grid-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Empty & Error states */
+.text-gray {
+  color: #777;
+  font-size: 1.1rem;
+  margin-top: 40px;
+}
+
+.text-red {
+  color: #ef4444;
+  font-weight: 500;
+}
+
+/* Loading text */
+.text-center {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #444;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .recipe-page-search {
+    width: 80%;
+  }
+}
+
+@media (max-width: 600px) {
+  .recipe-page-title {
+    font-size: 1.7rem;
+  }
+
+  .recipe-page-search {
+    width: 90%;
+    padding: 10px 14px;
+  }
+
+  .recipe-page-container {
+    margin: 40px auto;
+    padding: 10px;
+  }
+}

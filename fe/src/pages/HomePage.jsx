@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Sparkles } from "lucide-react";
 import logo from "../assets/logo.png";
 import { getMe } from "../api/authApi"; // make sure this exists
-import "../main.css";
+import "../assets/homePage.css"; 
 
 function HomePage() {
   const [currentUser, setCurrentUser] = useState(null);

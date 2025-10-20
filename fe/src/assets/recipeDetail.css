@@ -1,0 +1,452 @@
+/* === RECIPE DETAIL PAGE === */
+
+.recipe-detail-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  background: linear-gradient(to bottom right, #fffaf3, #ffe8d0);
+  min-height: 100vh;
+  padding: 40px 20px;
+  font-family: "Poppins", sans-serif;
+  color: #333;
+  gap: 40px;
+}
+
+/* === IMAGE SECTION === */
+.recipe-detail-image {
+  flex: 1;
+  min-width: 320px;
+  max-width: 500px;
+  text-align: center;
+}
+
+.recipe-detail-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.recipe-detail-image img:hover {
+  transform: scale(1.03);
+}
+
+.no-image-text {
+  color: #777;
+  font-style: italic;
+}
+
+/* === INFO SECTION === */
+.recipe-detail-info {
+  flex: 1.3;
+  min-width: 320px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.recipe-detail-title {
+  font-size: 2.2rem;
+  color: #ff6347;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.recipe-detail-author {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* === SECTION LABELS & CONTENT === */
+.section-label {
+  font-weight: 600;
+  margin-top: 20px;
+  color: #222;
+}
+
+.section-content {
+  white-space: pre-wrap;
+  line-height: 1.7;
+  color: #444;
+  background: #fff8f0;
+  padding: 10px 15px;
+  border-radius: 10px;
+  margin-top: 5px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+}
+
+/* === BOOKMARK BUTTON === */
+.bookmark-btn {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.bookmark-btn.not-bookmarked {
+  background-color: #ff6347;
+  color: #fff;
+}
+
+.bookmark-btn.bookmarked {
+  background-color: #ffd2c2;
+  color: #a33;
+}
+
+.bookmark-btn:hover {
+  transform: scale(1.05);
+}
+
+/* === MESSAGES === */
+.recipe-detail-message {
+  margin-top: 15px;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* === COMMENTS SECTION === */
+.comments-section {
+  margin-top: 30px;
+  padding-top: 15px;
+  border-top: 1px solid #ddd;
+}
+
+.comments-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #ff6347;
+  margin-bottom: 15px;
+}
+
+.comment-item {
+  background: #fff7f0;
+  padding: 12px 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+}
+
+.comment-item p {
+  margin: 0;
+}
+
+.comment-item small {
+  color: #888;
+  font-size: 0.8rem;
+}
+
+/* === ADD COMMENT FORM === */
+.comment-form {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comment-form textarea {
+  resize: none;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  min-height: 80px;
+  font-size: 0.95rem;
+  font-family: "Poppins", sans-serif;
+}
+
+.comment-form button {
+  background-color: #ff6347;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.comment-form button:hover {
+  background-color: #ff3e1f;
+}
+
+/* === BACK BUTTON === */
+.back-btn {
+  margin-top: 25px;
+  background: #222;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.back-btn:hover {
+  background: #444;
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  .recipe-detail-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .recipe-detail-info {
+    width: 95%;
+  }
+
+  .recipe-detail-title {
+    font-size: 1.8rem;
+  }
+
+  .section-content {
+    font-size: 0.95rem;
+  }
+}
+/* === RECIPE DETAIL PAGE === */
+
+.recipe-detail-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  background: linear-gradient(to bottom right, #fffaf3, #ffe8d0);
+  min-height: 100vh;
+  padding: 40px 20px;
+  font-family: "Poppins", sans-serif;
+  color: #333;
+  gap: 40px;
+}
+
+/* === IMAGE SECTION === */
+.recipe-detail-image {
+  flex: 1;
+  min-width: 320px;
+  max-width: 500px;
+  text-align: center;
+}
+
+.recipe-detail-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.recipe-detail-image img:hover {
+  transform: scale(1.03);
+}
+
+.no-image-text {
+  color: #777;
+  font-style: italic;
+}
+
+/* === INFO SECTION === */
+.recipe-detail-info {
+  flex: 1.3;
+  min-width: 320px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.recipe-detail-title {
+  font-size: 2.2rem;
+  color: #ff6347;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.recipe-detail-author {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* === SECTION LABELS & CONTENT === */
+.section-label {
+  font-weight: 600;
+  margin-top: 20px;
+  color: #222;
+}
+
+.section-content {
+  white-space: pre-wrap;
+  line-height: 1.7;
+  color: #444;
+  background: #fff8f0;
+  padding: 10px 15px;
+  border-radius: 10px;
+  margin-top: 5px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+}
+
+/* === BOOKMARK BUTTON === */
+.bookmark-btn {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.bookmark-btn.not-bookmarked {
+  background-color: #ff6347;
+  color: #fff;
+}
+
+.bookmark-btn.bookmarked {
+  background-color: #ffd2c2;
+  color: #a33;
+}
+
+.bookmark-btn:hover {
+  transform: scale(1.05);
+}
+
+/* === MESSAGES === */
+.recipe-detail-message {
+  margin-top: 15px;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+/* === COMMENTS SECTION === */
+.comments-section {
+  margin-top: 30px;
+  padding-top: 15px;
+  border-top: 1px solid #ddd;
+}
+
+.comments-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #ff6347;
+  margin-bottom: 15px;
+}
+
+.comment-item {
+  background: #fff7f0;
+  padding: 12px 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+}
+
+.comment-item p {
+  margin: 0;
+}
+
+.comment-item small {
+  color: #888;
+  font-size: 0.8rem;
+}
+
+/* === ADD COMMENT FORM === */
+.comment-form {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comment-form textarea {
+  resize: none;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  min-height: 80px;
+  font-size: 0.95rem;
+  font-family: "Poppins", sans-serif;
+}
+
+.comment-form button {
+  background-color: #ff6347;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.comment-form button:hover {
+  background-color: #ff3e1f;
+}
+
+/* === BACK BUTTON === */
+.back-btn {
+  margin-top: 25px;
+  background: #222;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.back-btn:hover {
+  background: #444;
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  .recipe-detail-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .recipe-detail-info {
+    width: 95%;
+  }
+
+  .recipe-detail-title {
+    font-size: 1.8rem;
+  }
+
+  .section-content {
+    font-size: 0.95rem;
+  }
+}

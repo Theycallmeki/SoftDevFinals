@@ -4,7 +4,7 @@ import { getRecipeById } from '../api/RecipeApi';
 import { addBookmark, removeBookmark, getUserBookmarks } from '../api/bookmarkApi';
 import { getMe } from '../api/authApi';
 import { getComments, addComment } from '../api/commentApi';
-import "../main.css";
+import "../assets/recipeDetail.css"; 
 
 export default function RecipeDetailPage() {
   const { id } = useParams();

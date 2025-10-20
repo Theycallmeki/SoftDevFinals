@@ -3,7 +3,7 @@ import { getAllRecipes } from '../api/RecipeApi';
 import { getMe } from '../api/authApi';
 import RecipeCard from '../components/RecipeCard';
 import { useNavigate } from 'react-router-dom';
-import "../main.css";
+import "../assets/recipePage.css"; 
 
 export default function RecipePage() {
   const [recipes, setRecipes] = useState([]);

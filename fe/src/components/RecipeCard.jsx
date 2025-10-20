@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { addBookmark, removeBookmark, getUserBookmarks } from '../api/bookmarkApi';
 import { Bookmark, BookmarkCheck } from 'lucide-react';
-import "../main.css"; 
+import "../assets/recipeCard.css"; 
 
 export default function RecipeCard({ recipe, currentUser, onDelete }) {
   const [saved, setSaved] = useState(false);

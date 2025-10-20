@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import "../main.css"; 
+import "../assets/navbar.css"; 
 
 function Navbar({ user, onLogout }) {
   return (
