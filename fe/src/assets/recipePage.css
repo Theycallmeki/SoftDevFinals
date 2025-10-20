@@ -1,18 +1,29 @@
-/* ==== Recipe Page Styles ==== */
+/* ==== Global Page Background ==== */
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to bottom right, #fff8f0, #ffe5d4);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #333;
+}
 
+/* ==== Recipe Page Styles ==== */
 .recipe-page-container {
   max-width: 1200px;
   margin: 60px auto;
   padding: 20px;
-  color: #333;
-  font-family: 'Poppins', sans-serif;
   text-align: center;
+  background: transparent; /* keep gradient visible */
 }
 
 .recipe-page-title {
   font-size: 2.2rem;
   font-weight: 700;
-  color: #2c2c2c;
+  color: #e63e82; /* deep pink for text */
   text-transform: uppercase;
   letter-spacing: 1.5px;
   margin-bottom: 30px;
@@ -23,7 +34,7 @@
   content: '';
   width: 60px;
   height: 4px;
-  background-color: #f97316; /* accent orange */
+  background-color: #ff4d94; /* accent pink underline */
   display: block;
   margin: 10px auto 0;
   border-radius: 2px;
@@ -32,7 +43,7 @@
 .recipe-page-search {
   width: 60%;
   padding: 12px 16px;
-  border: 2px solid #ddd;
+  border: 2px solid #f7b5cd;
   border-radius: 50px;
   font-size: 1rem;
   outline: none;
@@ -40,15 +51,15 @@
 }
 
 .recipe-page-search:focus {
-  border-color: #f97316;
-  box-shadow: 0 0 8px rgba(249, 115, 22, 0.3);
+  border-color: #ff4d94;
+  box-shadow: 0 0 8px rgba(255, 77, 148, 0.3);
 }
 
 .recipe-page-search::placeholder {
   color: #aaa;
 }
 
-/* Grid layout */
+/* ==== Grid layout ==== */
 .recipe-page-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -63,10 +74,10 @@
 
 .recipe-page-grid-item:hover {
   transform: translateY(-6px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 16px rgba(255, 105, 180, 0.2);
 }
 
-/* Empty & Error states */
+/* ==== Empty & Error states ==== */
 .text-gray {
   color: #777;
   font-size: 1.1rem;
@@ -78,14 +89,14 @@
   font-weight: 500;
 }
 
-/* Loading text */
+/* ==== Loading text ==== */
 .text-center {
   text-align: center;
   font-size: 1.1rem;
   color: #444;
 }
 
-/* Responsive adjustments */
+/* ==== Responsive adjustments ==== */
 @media (max-width: 900px) {
   .recipe-page-search {
     width: 80%;

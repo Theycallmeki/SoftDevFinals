@@ -61,6 +61,7 @@
   object-fit: cover;
 }
 
+/* ==== TITLE STYLING ==== */
 .home-title {
   font-size: 3rem;
   font-weight: 700;
@@ -68,14 +69,18 @@
   letter-spacing: 3px;
 }
 
+/* Pink theme for title */
 .food-text {
-  color: #ff6347;
+  color: #ff69b4; /* Hot pink for "FOOD" */
+  text-shadow: 0 0 10px rgba(255, 105, 180, 0.4);
 }
 
 .pandak-text {
-  color: #222;
+  color: #d63384; /* Deep pink for "TANDA" */
+  text-shadow: 0 0 10px rgba(214, 51, 132, 0.3);
 }
 
+/* SUBTITLE */
 .home-subtitle {
   font-size: 1rem;
   max-width: 400px;
@@ -88,7 +93,7 @@
 }
 
 .icon {
-  color: #ff6347;
+  color: #ff69b4;
   animation: sparkle 1.5s infinite;
 }
 
@@ -114,6 +119,7 @@
   animation: fadeIn 1s ease-in-out;
 }
 
+/* STORY SECTION */
 .story-container {
   display: flex;
   flex-direction: column;
@@ -122,7 +128,7 @@
 
 .story-title {
   font-size: 1.8rem;
-  color: #ff6347;
+  color: #d63384; /* Deep pink */
   font-weight: 600;
   text-align: center;
   margin-bottom: 10px;
@@ -165,3 +171,4 @@
     font-size: 1.6rem;
   }
 }
+  

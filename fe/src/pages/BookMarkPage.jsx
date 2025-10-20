@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react"; 
+import React, { useEffect, useState } from "react";
 import { getUserBookmarks, removeBookmark } from "../api/bookmarkApi";
 import { getMe } from "../api/authApi";
 import { useNavigate } from "react-router-dom";
-import "../index.css";
+import "../assets/bookmarkPage.css";
 
 export default function BookmarksPage() {
   const [bookmarks, setBookmarks] = useState([]);
@@ -67,7 +67,7 @@ export default function BookmarksPage() {
             <div
               className="Recipe-Card"
               key={recipe.id}
-              onClick={() => navigate(`/recipes/${recipe.id}`)} // ✅ Navigate to recipe detail
+              onClick={() => navigate(`/recipes/${recipe.id}`)}
               style={{
                 cursor: "pointer",
                 transition: "transform 0.2s ease",
@@ -87,17 +87,10 @@ export default function BookmarksPage() {
               )}
               <div className="recipe-card-content">
                 <h3>{recipe.title}</h3>
-                <div className="recipe-section">
-                  <p><strong>Ingredients:</strong></p>
-                  <pre className="recipe-text">{recipe.ingredients}</pre>
-
-                  <p><strong>Instructions:</strong></p>
-                  <pre className="recipe-text">{recipe.instructions}</pre>
-                </div>
 
                 {/* ✅ Unsave Button */}
                 <button
-                  onClick={(e) => handleUnsave(recipe.id, e)} // Prevent card click
+                  onClick={(e) => handleUnsave(recipe.id, e)}
                   style={{
                     marginTop: "10px",
                     padding: "6px 12px",

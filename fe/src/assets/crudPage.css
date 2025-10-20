@@ -1,7 +1,7 @@
-/* CRUD PAGE LAYOUT */
+/* ==== CRUD PAGE LAYOUT ==== */
 .crud-page-container {
   padding: 30px;
-  background: #fff8f0;
+  background: linear-gradient(to bottom right, #fff8f0, #ffe5d4);
   min-height: 100vh;
   font-family: "Poppins", sans-serif;
 }
@@ -10,8 +10,9 @@
   text-align: center;
   font-size: 2.2rem;
   margin-bottom: 25px;
-  color: #ff6347;
+  color: #ff4d94;
   letter-spacing: 2px;
+  font-weight: 700;
 }
 
 .crud-page-flex {
@@ -21,7 +22,7 @@
   gap: 30px;
 }
 
-/* FORM STYLING */
+/* ==== FORM STYLING ==== */
 .crud-form {
   background: white;
   padding: 25px;
@@ -30,13 +31,13 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(255, 105, 180, 0.2);
 }
 
 .crud-form-title {
   text-align: center;
   font-size: 1.5rem;
-  color: #ff6347;
+  color: #ff4d94;
   margin-bottom: 10px;
 }
 
@@ -44,7 +45,7 @@
 .crud-form-textarea,
 .crud-form-file {
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #f7b5cd;
   border-radius: 8px;
   font-size: 1rem;
   width: 100%;
@@ -56,7 +57,7 @@
 }
 
 .crud-form-submit {
-  background-color: #ff6347;
+  background-color: #ff4d94;
   color: white;
   border: none;
   padding: 12px;
@@ -67,17 +68,17 @@
 }
 
 .crud-form-submit:hover {
-  background-color: #e6533d;
+  background-color: #e63e82;
 }
 
-/* TABLE STYLING */
+/* ==== TABLE STYLING ==== */
 .crud-table-container {
   flex: 1;
   overflow-x: auto;
   background: white;
   padding: 20px;
   border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(255, 105, 180, 0.2);
 }
 
 .crud-table {
@@ -88,20 +89,20 @@
 
 .crud-table th,
 .crud-table td {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #f8bcd5;
   padding: 12px 10px;
   vertical-align: top;
 }
 
 .crud-table-header th {
-  background-color: #ff6347;
+  background-color: #ff4d94;
   color: white;
   text-align: center;
   font-weight: 600;
 }
 
 .crud-table tr:hover {
-  background-color: #fff3ed;
+  background-color: #ffe6f0;
   transition: 0.2s;
 }
 
@@ -121,13 +122,14 @@
   color: #888;
 }
 
-/* BUTTONS */
+/* ==== BUTTONS ==== */
 .crud-delete-btn {
   background: none;
   border: none;
-  color: #ff3b3b;
+  color: #ff4d4d;
   font-size: 1.2rem;
   cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
 .crud-delete-btn:hover {
@@ -145,7 +147,7 @@ button:hover {
   transform: scale(1.1);
 }
 
-/* RESPONSIVE */
+/* ==== RESPONSIVE ==== */
 @media (max-width: 900px) {
   .crud-page-flex {
     flex-direction: column;

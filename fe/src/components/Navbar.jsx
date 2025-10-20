@@ -1,12 +1,19 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import "../assets/navbar.css"; 
+import React from "react";
+import { Link } from "react-router-dom";
+import logo from "../assets/logo.png";
+import "../assets/navbar.css";
 
 function Navbar({ user, onLogout }) {
   return (
     <nav className="navbar">
-      <h2 className="navbar-title">FOODTANDA</h2>
-      <div>
+      <div className="navbar-brand">
+        <div className="navbar-logo-circle">
+          <img src={logo} alt="FoodTanda Logo" className="navbar-logo" />
+        </div>
+        <h2 className="navbar-title">FOODTANDA</h2>
+      </div>
+
+      <div className="navbar-links">
         <Link to="/" className="navbar-link">Home</Link>
 
         {user && (
@@ -14,7 +21,6 @@ function Navbar({ user, onLogout }) {
             <Link to="/crud" className="navbar-link">Manage Recipes</Link>
             <Link to="/recipes" className="navbar-link">Recipes</Link>
             <Link to="/bookmarks" className="navbar-link">Saved Recipes</Link>
-
             <button onClick={onLogout} className="navbar-logout-btn">Logout</button>
           </>
         )}

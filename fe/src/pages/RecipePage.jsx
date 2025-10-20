@@ -66,7 +66,7 @@ export default function RecipePage() {
 
   return (
     <div className="recipe-page-container">
-      <h2 className="recipe-page-title">Recipe Marketplace</h2>
+      <h2 className="recipe-page-title">Explore Recipes</h2>
 
       <div style={{ marginBottom: '24px', display: 'flex', justifyContent: 'center' }}>
         <input
