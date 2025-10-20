@@ -1,16 +1,16 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { register } from "../api/authApi";
 import "../assets/register.css";
 
-export default function Register({ onRegister }) {
+export default function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate(); // ✅ for redirect
+  const navigate = useNavigate(); // for redirect
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,9 +24,9 @@ export default function Register({ onRegister }) {
     setLoading(true);
 
     try {
-      const data = await register({ username, password });
-      onRegister?.(data.user);
-
+      // Call register API, but do NOT set user state
+      await register({ username, password });
+      
       // Clear form
       setUsername("");
       setPassword("");
