@@ -57,8 +57,7 @@ export default function RecipeCard({ recipe, currentUser, onDelete }) {
 
       {/* ✅ Fixed ingredients section with indentation and line breaks */}
       <div className="recipe-section">
-        <p><strong>Ingredients:</strong></p>
-        <pre className="recipe-text">{recipe.ingredients || 'N/A'}</pre>
+       
       </div>
 
       <div className="recipe-card-buttons">
